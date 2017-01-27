@@ -1,0 +1,106 @@
+COMP 15 HW5: Sorts
+By Rebecca Redelmeier
+Date: November 2016
+
+PURPOSE
+The purpose of this program is to allow a user to sort a list of positive
+integers using three (and a fourth bonus!) sorting algorithms.
+
+ACKNOWLEDGEMENTS
+Sources noted directly in code.
+
+FILES PROVIDED
+        sorter.cpp
+        User iterface of the sort program. Contains the main that reads in list,
+        and calls specified sort algorithm. Then prints out to file or cout
+        as specified.
+
+        sortAlgs.h
+        Contains function declaration of all sorts. 
+
+        sortAlgs.cpp
+        Contains function implementations of all sorts. 
+
+        test.cpp
+        A test file for the sorts.
+
+        100ints.txt
+        A text file containing 100 ints.
+
+
+COMPILING & RUNNING
+To compile program:
+clang++ -Wall -Wextra -std=c++11 sorter.cpp sortAlgs.cpp -o sort
+
+This creates an executable file that can be run with ./sort, followed by 
+the necessary command line arguments. These are, in order:
+- either --s1, --s2, --s3, or bonus to indicate which sort algorithm to do
+- either --save or --print to indicate output mode. If saved, the output is
+  saved in file named [ListOrigin]_[SortAlg]_[NumElements]_sorted.txt.
+        
+
+DATA STRUCTURES
+        Vectors
+        Vectors are used to hold all elements of the list as well as to hold 
+        any elements of sublists created in the sort. Vectors are an
+        appropriate data structure to use as they are able to hold ints and 
+        expand when necessary. They also have built-in public functions that
+        allow items to be pushed on the back of a vector, different elements
+        of the vector to be accesed, clearing, etc. This is helpful as it 
+        removes the need to write a dynamic array (sequence) or linked list
+        class.
+
+        Array
+        An array is used in bucket sort. An array allows different data of the
+        same type to be held in one structure. This is useful for this sort as
+        the number of elements in the array stays constant and the only
+        function applied to any elements of the array is increment by 1.
+        A limitation of this data structure is that it has a maximum 
+        size that it can be initialized too. 
+ 
+
+ALGORITHIMS
+        insertSort
+        sorts list by maintaining a sorted sublist in the lower part of the 
+        list. Goes through vector and adds next unsorted int to the sorted 
+        portion, then shifts sorted portion down to keep the invariant.
+        Worst case Big O: O(n^2), best case Big O: O(n), only happens when
+        array is already all sorted
+
+        bucketSort
+        sorts list using bucket sort algorithm. Sorts all numbers in list       
+        into bucket array (one bucket per integer). When an integer is added to
+        its bucket, the count of that bucket (that starts at 0) is incremented.
+        Once all numbers have been placed in a bucket, the numbers are
+        concatenated together. The number of times they appear is determined
+        by the count in the bucket. A limitation of this sort is that 
+        it cannot be used for lists containing very large numbers as there
+        is a maximum size that an array can be initialized to. 
+        Big O is always O(n * k) where k is the
+        number of buckets created (the max number in the list).
+
+        mergeSort
+        sorts a list of ints through breaking list into left and right
+        recursively until each sublist has only 1 element in it. Then,
+        compare left and right and put lower one back into list. Do until
+        all elements arrive back in list. Big O is always O(n log(n)).
+
+        radixSort
+        sort list through radix method, sorting list from least to most important
+        integer space, i.e 0s first, then 10s, then 100s, etc. Sorts by
+        placing ints in different bucket vectors. Perform until
+        list has been completely sorted at all integer spaces, then
+        concatenate back together. Best case: O(n) when all integers have the
+        same number of digits, worst case: O(log n) when all integers have a 
+        different number of digits, average case: O(k * n) when some integers
+        have a different number of digits and k refers to the number of digits
+        in  the integer.
+
+
+TESTING
+        Testing of all sort functions was done first through using test.cpp and 
+        commenting out the functions not being tested. Testing of sorter.cpp was
+        done using user input and user files and checking output type and 
+        content. 100ints.txt was used as a file to feed into program.
+
+        
